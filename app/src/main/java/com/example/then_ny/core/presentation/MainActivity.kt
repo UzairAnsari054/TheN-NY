@@ -12,8 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.then_ny.add_note.presentation.AddNoteScreen
 import com.example.then_ny.core.presentation.ui.theme.TheNNYTheme
+import com.example.then_ny.note_details.presentation.NoteDetailsScreen
 import com.example.then_ny.note_list.presentation.NoteListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,11 +44,22 @@ fun Navigation(modifier: Modifier = Modifier) {
         startDestination = Screen.NoteListScreen
     ) {
         composable<Screen.NoteListScreen> {
-            NoteListScreen(onNavigateToAddNote = { navController.navigate(Screen.AddNoteScreen) })
+            NoteListScreen(
+                onNavigateToAddNote = { navController.navigate(Screen.AddNoteScreen) },
+                onNavigateToNoteDetail = { navController.navigate(Screen.NoteDetailsScreen(id = it)) }
+            )
         }
 
         composable<Screen.AddNoteScreen> {
             AddNoteScreen(onSave = {navController.popBackStack()})
+        }
+
+        composable<Screen.NoteDetailsScreen> { backStackEntry ->
+            val noteDetailsScreen = backStackEntry.toRoute<Screen.NoteDetailsScreen>()
+            NoteDetailsScreen(
+                id = noteDetailsScreen.id,
+                onSave = { navController.popBackStack() }
+            )
         }
 
     }

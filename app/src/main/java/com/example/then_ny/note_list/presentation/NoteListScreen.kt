@@ -51,6 +51,7 @@ import com.example.then_ny.core.presentation.utils.TestTags
 @Composable
 fun NoteListScreen(
     onNavigateToAddNote: () -> Unit,
+    onNavigateToNoteDetail: (id: Int) -> Unit,
     noteListViewModel: NoteListViewModel = hiltViewModel(),
 ) {
 
@@ -133,6 +134,9 @@ fun NoteListScreen(
                     onDelete = {
                         noteListViewModel.onAction(NoteListEvent.DeleteNote(noteListState.noteList[index]))
                     },
+                    onNoteClicked = {
+                        onNavigateToNoteDetail(noteListState.noteList[index].id!!)
+                    },
                     noteListState.noteList[index]
                 )
 
@@ -146,6 +150,7 @@ fun NoteListScreen(
 @Composable
 fun ListNoteItem(
     onDelete: () -> Unit,
+    onNoteClicked: () -> Unit,
     noteItem: Note,
     modifier: Modifier = Modifier
 ) {
@@ -158,6 +163,7 @@ fun ListNoteItem(
             .clip(RoundedCornerShape(20.dp))
             .background(MaterialTheme.colorScheme.primary)
             .padding(8.dp)
+            .clickable { onNoteClicked() }
     ) {
         AsyncImage(
             modifier = Modifier
