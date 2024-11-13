@@ -1,4 +1,4 @@
-package com.example.then_ny.ui.theme
+package com.example.then_ny.core.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
