@@ -2,6 +2,7 @@ package com.example.then_ny.core.di
 
 import android.app.Application
 import androidx.room.Room
+import com.example.then_ny.add_note.domain.usecase.SaveNoteUseCase
 import com.example.then_ny.core.data.local.NoteDao
 import com.example.then_ny.core.data.local.NoteDatabase
 import com.example.then_ny.core.data.repository.NoteRepositoryImpl
@@ -39,23 +40,5 @@ object AppModule {
     @Provides
     fun provideNoteRepository(noteRepositoryImpl: NoteRepositoryImpl): NoteRepository {
         return noteRepositoryImpl
-    }
-
-    @Singleton
-    @Provides
-    fun provideGetNoteListUseCase(noteRepository: NoteRepository): GetNoteListUseCase {
-        return GetNoteListUseCase(noteRepository)
-    }
-
-    @Singleton
-    @Provides
-    fun provideDeleteNoteUseCase(noteRepository: NoteRepository): DeleteNoteUseCase {
-        return DeleteNoteUseCase(noteRepository)
-    }
-
-    @Singleton
-    @Provides
-    fun provideDeleteNoteWithQueryUseCase(noteRepository: NoteRepository): DeleteNoteWithQueryUseCase {
-        return DeleteNoteWithQueryUseCase(noteRepository)
     }
 }
