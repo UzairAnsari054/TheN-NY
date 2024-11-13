@@ -7,4 +7,7 @@ interface Screen {
 
     @kotlinx.serialization.Serializable
     data object AddNoteScreen : Screen
+
+    @kotlinx.serialization.Serializable
+    data class NoteDetailsScreen(val id: Int) : Screen
 }
