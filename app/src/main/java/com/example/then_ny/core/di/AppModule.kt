@@ -2,14 +2,12 @@ package com.example.then_ny.core.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.then_ny.add_note.domain.usecase.SaveNoteUseCase
 import com.example.then_ny.core.data.local.NoteDao
 import com.example.then_ny.core.data.local.NoteDatabase
+import com.example.then_ny.core.data.repository.ImageRepositoryImpl
 import com.example.then_ny.core.data.repository.NoteRepositoryImpl
+import com.example.then_ny.core.domain.repository.ImageRepository
 import com.example.then_ny.core.domain.repository.NoteRepository
-import com.example.then_ny.note_list.domain.usecase.DeleteNoteUseCase
-import com.example.then_ny.note_list.domain.usecase.DeleteNoteWithQueryUseCase
-import com.example.then_ny.note_list.domain.usecase.GetNoteListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,4 +39,5 @@ object AppModule {
     fun provideNoteRepository(noteRepositoryImpl: NoteRepositoryImpl): NoteRepository {
         return noteRepositoryImpl
     }
+
 }

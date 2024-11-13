@@ -8,6 +8,7 @@ import com.example.then_ny.note_list.domain.usecase.GetNoteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,7 +25,9 @@ class NoteListViewModel @Inject constructor(
     fun onAction(action: NoteListEvent) {
         when (action) {
             NoteListEvent.ChangeNoteListOrder -> {
-                _noteListState.value.orderByTitle = !_noteListState.value.orderByTitle
+                _noteListState.update {
+                    it.copy(orderByTitle = !it.orderByTitle)
+                }
                 loadNotes()
             }
 
