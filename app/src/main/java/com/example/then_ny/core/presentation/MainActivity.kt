@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.then_ny.add_note.presentation.AddNoteScreen
 import com.example.then_ny.core.presentation.ui.theme.TheNNYTheme
 import com.example.then_ny.note_list.presentation.NoteListScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +42,11 @@ fun Navigation(modifier: Modifier = Modifier) {
         startDestination = Screen.NoteListScreen
     ) {
         composable<Screen.NoteListScreen> {
-            NoteListScreen(onNavigateToAddNote = { /*TODO*/ })
+            NoteListScreen(onNavigateToAddNote = { navController.navigate(Screen.AddNoteScreen) })
+        }
+
+        composable<Screen.AddNoteScreen> {
+            AddNoteScreen(onSave = {navController.popBackStack()})
         }
 
     }
