@@ -1,4 +1,4 @@
-package com.example.then_ny.ui.theme
+package com.example.then_ny.core.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
