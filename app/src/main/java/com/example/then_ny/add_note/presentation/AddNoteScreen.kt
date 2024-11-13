@@ -79,29 +79,29 @@ fun AddNoteScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-//        AsyncImage(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(200.dp)
-//                .padding(horizontal = 16.dp)
-//                .clip(RoundedCornerShape(16.dp))
-//                .background(MaterialTheme.colorScheme.primaryContainer)
-//                .clickable {
-//                    addNoteViewModel.onAction(
-//                        AddNoteActions.UpdateImagesDialogVisibility
-//                    )
-//                }
-//                .testTag(
-//                    TestTags.NOTE_IMAGE
-//                ),
-//            model = ImageRequest
-//                .Builder(LocalContext.current)
-//                .data(addNoteState.imageUrl)
-//                .size(Size.ORIGINAL)
-//                .build(),
-//            contentDescription = addNoteState.searchImagesQuery,
-//            contentScale = ContentScale.Crop
-//        )
+        AsyncImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .clickable {
+                    addNoteViewModel.onAction(
+                        AddNoteEvent.UpdateImageDialogVisibility
+                    )
+                }
+                .testTag(
+                    TestTags.NOTE_IMAGE
+                ),
+            model = ImageRequest
+                .Builder(LocalContext.current)
+                .data(addNoteState.imageUrl)
+                .size(Size.ORIGINAL)
+                .build(),
+            contentDescription = addNoteState.searchQuery,
+            contentScale = ContentScale.Crop
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -162,104 +162,104 @@ fun AddNoteScreen(
         Spacer(modifier = Modifier.height(30.dp))
     }
 
-//    if (addNoteState.isImagesDialogShowing) {
-//        Dialog(
-//            onDismissRequest = {
-//                addNoteViewModel.onAction(
-//                    AddNoteActions.UpdateImagesDialogVisibility
-//                )
-//            }
-//        ) {
-//            ImagesDialogContent(
-//                addNoteState = addNoteState,
-//                onSearchQueryChange = {
-//                    addNoteViewModel.onAction(
-//                        AddNoteActions.UpdateSearchImageQuery(it)
-//                    )
-//                },
-//                onImageClick = {
-//                    addNoteViewModel.onAction(
-//                        AddNoteActions.PickImage(it)
-//                    )
-//                }
-//            )
-//        }
-//    }
+    if (addNoteState.isImageDialogShowing) {
+        Dialog(
+            onDismissRequest = {
+                addNoteViewModel.onAction(
+                    AddNoteEvent.UpdateImageDialogVisibility
+                )
+            }
+        ) {
+            ImagesDialogContent(
+                addNoteState = addNoteState,
+                onSearchQueryChange = {
+                    addNoteViewModel.onAction(
+                        AddNoteEvent.UpdateSearchImageQuery(it)
+                    )
+                },
+                onImageClick = {
+                    addNoteViewModel.onAction(
+                        AddNoteEvent.PickImage(it)
+                    )
+                }
+            )
+        }
+    }
 }
 
-//@Composable
-//fun ImagesDialogContent(
-//    addNoteState: AddNoteState,
-//    onSearchQueryChange: (String) -> Unit,
-//    onImageClick: (String) -> Unit,
-//) {
-//
-//    Log.d("ImagesDialogContent", "ImagesDialogContent")
-//    Column(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .fillMaxHeight(0.6f)
-//            .clip(RoundedCornerShape(26.dp))
-//            .background(MaterialTheme.colorScheme.background)
-//            .testTag(TestTags.SEARCH_IMAGE_DIALOG),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        Spacer(modifier = Modifier.height(16.dp))
-//        OutlinedTextField(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 16.dp)
-//                .testTag(TestTags.SEARCH_IMAGE_TEXT_FIELD),
-//            value = addNoteState.searchImagesQuery,
-//            onValueChange = {
-//                onSearchQueryChange(it)
-//            },
-//            label = {
-//                Text(text = stringResource(R.string.search_image))
-//            },
-//        )
-//
-//        Spacer(modifier = Modifier.height(8.dp))
-//
-//        if (addNoteState.isLoadingImages) {
-//            Box(
-//                modifier = Modifier.fillMaxSize(),
-//                contentAlignment = Alignment.Center
-//            ) {
-//                CircularProgressIndicator()
-//            }
-//        } else {
-//            LazyVerticalGrid(
-//                modifier = Modifier.fillMaxSize(),
-//                columns = GridCells.Adaptive(120.dp),
-//                contentPadding = PaddingValues(horizontal = 8.dp)
-//            ) {
-//
-//                itemsIndexed(addNoteState.imageList) { index, url ->
-//                    Log.d("ImagesDialogContent", ": $url")
-//                    AsyncImage(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .height(120.dp)
-//                            .padding(8.dp)
-//                            .clip(RoundedCornerShape(16.dp))
-//                            .background(MaterialTheme.colorScheme.primaryContainer)
-//                            .clickable { onImageClick(url) }
-//                            .testTag(TestTags.PICKED_IMAGE + url),
-//                        model = ImageRequest
-//                            .Builder(LocalContext.current)
-//                            .data(url)
-//                            .size(Size.ORIGINAL)
-//                            .build(),
-//                        contentDescription = stringResource(R.string.image),
-//                        contentScale = ContentScale.Crop
-//                    )
-//                }
-//
-//            }
-//        }
-//    }
-//}
+@Composable
+fun ImagesDialogContent(
+    addNoteState: AddNoteState,
+    onSearchQueryChange: (String) -> Unit,
+    onImageClick: (String) -> Unit,
+) {
+
+    Log.d("ImagesDialogContent", "ImagesDialogContent")
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.6f)
+            .clip(RoundedCornerShape(26.dp))
+            .background(MaterialTheme.colorScheme.background)
+            .testTag(TestTags.SEARCH_IMAGE_DIALOG),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .testTag(TestTags.SEARCH_IMAGE_TEXT_FIELD),
+            value = addNoteState.searchQuery,
+            onValueChange = {
+                onSearchQueryChange(it)
+            },
+            label = {
+                Text(text = stringResource(R.string.search_image))
+            },
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        if (addNoteState.isLoadingImages) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            LazyVerticalGrid(
+                modifier = Modifier.fillMaxSize(),
+                columns = GridCells.Adaptive(120.dp),
+                contentPadding = PaddingValues(horizontal = 8.dp)
+            ) {
+
+                itemsIndexed(addNoteState.imageList) { index, url ->
+                    Log.d("ImagesDialogContent", ": $url")
+                    AsyncImage(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(120.dp)
+                            .padding(8.dp)
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(MaterialTheme.colorScheme.primaryContainer)
+                            .clickable { onImageClick(url) }
+                            .testTag(TestTags.PICKED_IMAGE + url),
+                        model = ImageRequest
+                            .Builder(LocalContext.current)
+                            .data(url)
+                            .size(Size.ORIGINAL)
+                            .build(),
+                        contentDescription = stringResource(R.string.image),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+
+            }
+        }
+    }
+}
 
 
 
